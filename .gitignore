@@ -27,3 +27,7 @@ doc/api/
 
 .flutter-plugins
 .flutter-plugins-dependencies
+.env
+
+# Android local properties
+/android/local.properties
