@@ -1,10 +1,8 @@
 import 'dart:convert';
-import 'package:bingwa_fix/Notifications/CustomerNotify.dart';
-import 'package:bingwa_fix/Settings/SettingsPage.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
-import 'package:bingwa_fix/DashBoard/CustomerDash.dart';
+
 
 class MyRequestsPage extends StatefulWidget {
   const MyRequestsPage({super.key});
@@ -84,7 +82,6 @@ class _MyRequestsPageState extends State<MyRequestsPage> {
       }
     }).toList();
 
-    final user = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
 
     return Scaffold(
       appBar: AppBar(
@@ -219,33 +216,8 @@ class _MyRequestsPageState extends State<MyRequestsPage> {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 1, // Highlight the My Requests tab
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.list_alt), label: 'My Requests'),
-          BottomNavigationBarItem(icon: Icon(Icons.notifications), label: 'Notifications'),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
-        ],
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey,
-        onTap: (index) {
-          if (index == 0) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => CustomerHomePage(), settings: RouteSettings(arguments: {"id": user?['id']}) ),
-            );
-          } else if (index == 2) {
-            Navigator.pushReplacement(
-              context,
-            MaterialPageRoute(builder: (context) => CustomerNotifyPage(),));
-          } else if (index == 3) {
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => SettingsPage(),));
-          }
-        },
-      ),
     );
   }
 }
+
+
