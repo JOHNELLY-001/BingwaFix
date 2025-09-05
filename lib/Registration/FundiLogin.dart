@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:bingwa_fix/DashBoard/FundiDash.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class FundiLoginPage extends StatefulWidget{
   const FundiLoginPage({super.key});
@@ -12,6 +13,45 @@ class _FundiLoginPageState extends State<FundiLoginPage>{
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _obscurePassword = true; // initial state (password hidden)
+  bool _isLoading = false;
+
+  Future<void> _login() async {
+    final String apiUrl = "https://bingwa-fix-backend.vercel.app/api/auth/loginfundi/";
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    final response = await http.post(
+      Uri.parse(apiUrl),
+      headers: {"Content-Type": "application/json"},
+      body: json.encode({
+        "email": _emailController.text.trim(),
+        "password": _passwordController.text.trim(),
+      }),
+    );
+
+    setState(() {
+      _isLoading = false;
+    });
+
+    if (!mounted) return; // ✅ ensures the widget is still in the tree
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Logged in successfully'))
+      );
+      Navigator.pushReplacementNamed(context, '/fundi_dashboard', arguments: data['fundi']);
+    } else {
+      final error = json.decode(response.body);
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error: ${error[error]}'))
+      );
+
+    }
+
+  }
 
 
   @override
@@ -81,20 +121,16 @@ class _FundiLoginPageState extends State<FundiLoginPage>{
                 const SizedBox(height: 30),
 
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: _isLoading ? null
+                  : () {
                     if (_formKey.currentState!.validate()) {
-                      // Only navigates if both fields are filled
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => FundiDashboardPage()),
-                      );
+                      _login();
                     }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blueGrey,
                   ),
-                  child: const Text(
+                  child: _isLoading ? const CircularProgressIndicator(color:  Colors.blue,) : const  Text(
                     'Login',
                     style: TextStyle(
                       fontSize: 18,
