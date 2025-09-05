@@ -1,6 +1,6 @@
 import 'package:bingwa_fix/Notifications/FundiNotify.dart';
 import 'package:flutter/material.dart';
-import 'package:bingwa_fix/DashBoard/FundiDash.dart';
+import 'package:bingwa_fix/DashBoard/fundi_stack.dart';
 import 'package:bingwa_fix/JobStatus/JobManager.dart';
 
 class FundiWalletPage extends StatefulWidget {
@@ -278,48 +278,6 @@ class _FundiWalletPageState extends State<FundiWalletPage> {
             ],
           ],
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 2, // Highlight Wallet tab
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard),
-            label: 'Dashboard',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.work),
-            label: 'My Jobs',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_balance_wallet),
-            label: 'Wallet',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
-            label: 'Notifications',
-          ),
-        ],
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey,
-        onTap: (index) {
-          // Handle navigation
-          if (index == 0) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const FundiDashboardPage()),
-            );
-          } else if (index == 1) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const FundiMyJobsPage()),
-            );
-          } else if (index == 3) {
-            Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const FundiNotificationsPage()),
-            );
-          }
-        },
       ),
     );
   }
