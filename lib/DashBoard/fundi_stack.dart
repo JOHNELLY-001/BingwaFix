@@ -1,20 +1,18 @@
-import 'package:bingwa_fix/DashBoard/Dash.dart';
-import 'package:bingwa_fix/Notifications/FundiNotify.dart';
+import 'package:bingwa_fix/DashBoard/fundi_dash.dart';
 import 'package:bingwa_fix/Settings/SettingsPage2.dart';
 import 'package:flutter/material.dart';
 import 'package:bingwa_fix/JobStatus/JobManager.dart';
 import 'package:bingwa_fix/Transactions/WalletPage.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
-class FundiDashboardPage extends StatefulWidget {
-  const FundiDashboardPage({super.key});
+
+class FundiStackPage extends StatefulWidget {
+  const FundiStackPage({super.key});
 
   @override
-  State<FundiDashboardPage> createState() => _FundiDashboardPageState();
+  State<FundiStackPage> createState() => _FundiStackPageState();
 }
 
-class _FundiDashboardPageState extends State<FundiDashboardPage> {
+class _FundiStackPageState extends State<FundiStackPage> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
