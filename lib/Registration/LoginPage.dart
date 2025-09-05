@@ -1,4 +1,4 @@
-// import 'package:bingwa_fix/DashBoard/CustomerDash.dart';
+// import 'package:bingwa_fix/DashBoard/customer_stack.dart';
 // import 'package:flutter/material.dart';
 
 //
@@ -139,9 +139,11 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool isLoading = false;
+  bool _obsecurePassword = true;
 
   Future<void> _login() async {
     final String apiUrl = "https://bingwa-fix-backend.vercel.app/api/auth/login";
@@ -233,116 +235,134 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       // backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const SizedBox(height: 60),
-            const Text(
-              'Customer Access',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 26,
-                fontWeight: FontWeight.bold,
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Form(
+              key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const SizedBox(height: 60),
+              const Text(
+                'Customer Access',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            const SizedBox(height: 10),
-            const Text(
-              'Sign in to request fundi services',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 17,
-                color: Colors.blueGrey,
+              const SizedBox(height: 10),
+              const Text(
+                'Sign in to request fundi services',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 17,
+                  color: Colors.blueGrey,
+                ),
               ),
-            ),
-            const SizedBox(height: 30),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    'Login',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+              const SizedBox(height: 30),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text(
+                      'Login',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                      style: TextButton.styleFrom(
+                        backgroundColor: Colors.blueGrey,
+                        // foregroundColor: Colors.white
+                      )
+                  ),
+                  const SizedBox(width: 20),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SignUpPage()),
+                      );
+                    },
+                    child: Text('Sign Up', style: TextStyle(fontSize: 17, color: Colors.blueGrey,),
                     ),
                   ),
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.blueGrey,
-                      // foregroundColor: Colors.white
-                    )
-                ),
-                const SizedBox(width: 20),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const SignUpPage()),
-                    );
-                  },
-                  child: Text('Sign Up', style: TextStyle(fontSize: 17, color: Colors.blueGrey,),
+                ],
+              ),
+              const SizedBox(height: 30),
+              TextFormField(
+                controller: _emailController,
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                  hintText: 'Enter your email',
+                  hintStyle: TextStyle(color: Colors.blueGrey, fontSize: 15),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-              ],
-            ),
-            const SizedBox(height: 30),
-            const Text(
-              'Email',
-              style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your email';
+                  }
+                  return null;
+                }
+
               ),
-            ),
-            const SizedBox(height: 8),
-            TextField(
-              controller: _emailController,
-              decoration: InputDecoration(
-                hintText: 'Enter your email',
-                hintStyle: TextStyle(color: Colors.blueGrey, fontSize: 15),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
+              const SizedBox(height: 20),
+              TextFormField(
+                controller: _passwordController,
+                obscureText: _obsecurePassword,
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                  hintText: 'Enter password',
+                  hintStyle: TextStyle(color: Colors.blueGrey, fontSize: 15),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _obsecurePassword ? Icons.visibility_off : Icons.visibility,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _obsecurePassword = !_obsecurePassword;
+                      });
+                    },
+                  )
                 ),
+                validator: (value) {
+                  if ( value == null || value.isEmpty) {
+                    return 'Please enter your password';
+                  }
+                  return null;
+                },
               ),
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              'Password',
-              style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 8),
-            TextField(
-              controller: _passwordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                hintText: 'Enter password',
-                hintStyle: TextStyle(color: Colors.blueGrey, fontSize: 15),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
+              const SizedBox(height: 30),
+              ElevatedButton(
+                onPressed: isLoading ? null : () {
+                  if (_formKey.currentState!.validate()) {
+                    _login();
+                }
+                },
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.blueGrey,
                 ),
+                child: isLoading
+                    ? const CircularProgressIndicator(color: Colors.blue)
+                    : const Text('Sign In', style: TextStyle(fontSize: 17),),
               ),
-            ),
-            const SizedBox(height: 30),
-            ElevatedButton(
-              onPressed: isLoading ? null : _login,
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                foregroundColor: Colors.white,
-                backgroundColor: Colors.blueGrey,
-              ),
-              child: isLoading
-                  ? const CircularProgressIndicator(color: Colors.blue)
-                  : const Text('Sign In', style: TextStyle(fontSize: 17),),
-            ),
-          ],
+            ],
+          ),
+      )
         ),
       ),
     );
