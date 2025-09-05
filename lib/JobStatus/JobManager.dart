@@ -1,6 +1,6 @@
 import 'package:bingwa_fix/Notifications/FundiNotify.dart';
 import 'package:flutter/material.dart';
-import 'package:bingwa_fix/DashBoard/FundiDash.dart';
+import 'package:bingwa_fix/DashBoard/fundi_stack.dart';
 import 'package:bingwa_fix/Transactions/WalletPage.dart';
 
 class FundiMyJobsPage extends StatefulWidget {
@@ -19,39 +19,6 @@ class _FundiMyJobsPageState extends State<FundiMyJobsPage> {
       _selectedTabIndex = index;
     });
 
-    switch (index) {
-      case 0: //Dashboard
-        Navigator.push(
-            context,
-            PageRouteBuilder(
-                pageBuilder: (context, animation1, animation2) => const FundiDashboardPage(),
-            ),
-        );
-        break;
-      case 1: //My Jobs
-        Navigator.push(
-            context,
-            PageRouteBuilder(
-                pageBuilder: (context, animation1, animation2) => const FundiMyJobsPage(),
-            ),
-        );
-        break;
-      case 2: //Wallets
-        Navigator.push(
-            context,
-            PageRouteBuilder(
-                pageBuilder: (context, animation1, animation2) => const FundiWalletPage(),
-            ),
-        );
-        break;
-      case 3: //Notifications
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => FundiNotificationsPage(),
-          ),
-        );
-    }
   }
 
   @override
@@ -195,30 +162,6 @@ class _FundiMyJobsPageState extends State<FundiMyJobsPage> {
             ),
           ),
         ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 1, // Highlight My Jobs tab
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard),
-            label: 'Dashboard',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.work),
-            label: 'My Jobs',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_balance_wallet),
-            label: 'Wallet',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
-            label: 'Notifications',
-          ),
-        ],
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey,
-        onTap: _onItemTapped,
       ),
     );
   }
