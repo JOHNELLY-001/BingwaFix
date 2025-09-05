@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:bingwa_fix/popUpScreens/SplashScreen.dart';
 import 'package:bingwa_fix/Registration/LoginPage.dart';
 import 'package:bingwa_fix/Registration/SignUpPage.dart';
-import 'package:bingwa_fix/DashBoard/CustomerDash.dart';
 import 'package:bingwa_fix/Registration/LoginPage2.dart';
+import 'package:bingwa_fix/DashBoard/customer_dash.dart';
+import 'package:bingwa_fix/DashBoard/fundi_dash.dart';
 
 
 
@@ -30,7 +31,8 @@ class FundiConnectApp extends StatelessWidget {
         '/login2': (context) => const LoginPage2(),
         '/signup': (context) => const SignUpPage(),
         '/landing': (context) => const LandingPage(),
-        '/customer_dashboard': (context) => const CustomerHomePage(),
+        '/customer_dashboard': (context) => const CustomerDashboard(),
+        '/fundi_dashboard': (context) => const DashPage(),
       },
     );
   }
